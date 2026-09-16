@@ -19,6 +19,7 @@ else:
 # Output: Found at index 3
 
 
+
 # Binary search[(O(log n))]
 def binary_search(nums, target):
     n = len(nums)
