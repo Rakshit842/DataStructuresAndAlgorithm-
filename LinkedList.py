@@ -41,6 +41,7 @@ while curr.next != None:
 curr.next = newNode
 printLinkedList(head)
 
+
 # insertion at Kth index
 k=2
 newNode = Node(1)
