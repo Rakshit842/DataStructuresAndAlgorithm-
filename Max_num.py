@@ -7,7 +7,6 @@ for i in range(len(arr)):
 print("maximum number is", maxno)
 
 
-
 # Finding second maximum number
 import math
 arr1 = [12, 7, 8, 9, 0]
@@ -22,6 +21,7 @@ for curValue in arr1:
     elif curValue > secondmax:
         secondmax = curValue
 print("second maximum number is", secondmax)
+
 
 
 # Assignment Q2
