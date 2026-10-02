@@ -30,7 +30,6 @@ def merge(left, right):
     return result
 
 
-
 arr = list(map(int, input("Enter elements separated by spaces: ").split()))
 print("Original array:", arr)
 sorted_arr = merge_sort(arr)

@@ -37,6 +37,7 @@ else:
 
 
 
+
 #1. Add
 #a) append(value) -> Add teh values in last, T/C - 0(1), 0(N)
 #b) insert(index, value) -> insert the value at index, T/C - 0(1), 0(n)
