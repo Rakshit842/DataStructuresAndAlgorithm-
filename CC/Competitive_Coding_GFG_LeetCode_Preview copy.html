@@ -1,0 +1,1092 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Competitive Coding — GFG & LeetCode Python Solutions</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f7fb;--panel:#fff;--text:#172033;--muted:#566176;--border:#dce2ec;--link:#075fe4;--code:#111827;--codeText:#f3f4f6}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--panel:#161b22;--text:#e6edf3;--muted:#9da7b3;--border:#30363d;--link:#79c0ff;--code:#010409;--codeText:#e6edf3}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:var(--panel);border-bottom:1px solid var(--border);padding:20px max(20px,calc((100% - 980px)/2));position:sticky;top:0;z-index:2}
+main{max-width:980px;margin:24px auto;padding:0 20px 60px}article{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:clamp(18px,4vw,42px)}
+h1{font-size:2rem;line-height:1.2}h2{margin-top:2.2em;padding-top:.6em;border-top:1px solid var(--border);font-size:1.45rem}h3{margin-top:1.7em;font-size:1.12rem}
+pre{overflow:auto;padding:18px;border-radius:10px;background:var(--code);color:var(--codeText);line-height:1.5;font-size:14px;tab-size:4}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}p code,li code{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 4px}
+a{color:var(--link)}hr{border:0;border-top:1px solid var(--border);margin:2em 0}.note{color:var(--muted);font-size:.92rem}
+@media print{header{position:static}body{background:#fff;color:#000}article{border:0}pre{white-space:pre-wrap}}
+</style></head><body><header><strong>Competitive Coding-I</strong> <span class="note">· GFG & LeetCode Python Solutions</span></header><main><article>
+<p class="note">Updated preview. Sessions 2 and 3 explicitly include recursion implementations. Copy only the code for the problem you are submitting.</p>
+<h1>Competitive Coding-I — Platform-Ready Python Solutions</h1>
+<p>This guide follows the links in <code>CC_Course_Syllabus_Outline copy.pdf</code>. Copy <strong>only the code for the specific problem</strong> into its judge editor. Do not paste the Markdown fences or combine multiple <code>class Solution</code> snippets into one submission.</p>
+<h2>Important submission rules</h2>
+<ul>
+<li><strong>LeetCode:</strong> usually keep the provided <code>class Solution:</code> and method name/parameters. Do not add <code>input()</code> or a main program unless the problem explicitly asks for it.</li>
+<li><strong>GeeksforGeeks (GFG):</strong> use the exact method name shown in the editor. GFG sometimes changes signatures; if the editor&#x27;s signature differs, keep its signature and replace only the method body.</li>
+<li><strong>Articles/tutorial links</strong> (lower/upper bound, frequency of characters, word count, linked-list search) are explanations, not always judge problems. Runnable standalone versions are included.</li>
+<li>These solutions use efficient standard approaches. Read each problem statement carefully, especially whether it expects printing, returning a value, or mutating an array.</li>
+</ul>
+<hr>
+<h1>SESSION 2 — Recursion</h1>
+<p>For this session, the core implementations below use <strong>recursion</strong>, as specified in your syllabus. For GFG submissions, preserve the exact method name shown in the editor.</p>
+<h2>1. Factorial using recursion</h2>
+<p>GFG link: https://www.geeksforgeeks.org/problems/factorial5739/1</p>
+<pre><code class="language-python">class Solution:
+    def factorial(self, n):
+        if n &lt;= 1:
+            return 1
+        return n * self.factorial(n - 1)</code></pre>
+<p>Example: <code>factorial(5) = 120</code>. Time <code>O(n)</code>, recursion stack <code>O(n)</code>.</p>
+<h2>2. Power of a number using recursion (fast exponentiation)</h2>
+<p>Syllabus topic: find power of a number.</p>
+<pre><code class="language-python">def power(x, n):
+    if n == 0:
+        return 1
+    half = power(x, n // 2)
+    result = half * half
+    return result if n % 2 == 0 else result * x</code></pre>
+<p>This computes <code>x ** n</code> for <code>n &gt;= 0</code>. Time <code>O(log n)</code>, recursion stack <code>O(log n)</code>. This is faster than multiplying <code>x</code> by itself <code>n</code> times.</p>
+<p>If the linked GFG “Power of Numbers” task asks for <code>n</code> raised to the <strong>reverse of n</strong>, use its specific required method:</p>
+<pre><code class="language-python">class Solution:
+    def reverseExponentiation(self, n):
+        rev = int(str(n)[::-1])
+        return n ** rev</code></pre>
+<h2>3. Print increasing order (1 to N) using recursion</h2>
+<p>GFG link: https://www.geeksforgeeks.org/problems/print-1-to-n-without-using-loops3621/1</p>
+<pre><code class="language-python">def print_increasing(n):
+    if n == 0:
+        return
+    print_increasing(n - 1)
+    print(n, end=&quot; &quot;)</code></pre>
+<p>Time <code>O(n)</code>, stack <code>O(n)</code>.</p>
+<p>If GFG gives you a <code>Solution</code> class and expects <code>printNos</code>, use:</p>
+<pre><code class="language-python">class Solution:
+    def printNos(self, n):
+        if n == 0:
+            return
+        self.printNos(n - 1)
+        print(n, end=&quot; &quot;)</code></pre>
+<h2>4. Print decreasing order (N to 1) using recursion</h2>
+<pre><code class="language-python">def print_decreasing(n):
+    if n == 0:
+        return
+    print(n, end=&quot; &quot;)
+    print_decreasing(n - 1)</code></pre>
+<p>Time <code>O(n)</code>, stack <code>O(n)</code>.</p>
+<h2>5. Print decreasing then increasing (N to 1 to N) using recursion</h2>
+<pre><code class="language-python">def print_decreasing_increasing(n):
+    if n == 0:
+        return
+    print(n, end=&quot; &quot;)
+    print_decreasing_increasing(n - 1)
+    print(n, end=&quot; &quot;)</code></pre>
+<p>Time <code>O(n)</code>, stack <code>O(n)</code>. For <code>n = 3</code>, output is <code>3 2 1 1 2 3</code>.</p>
+<h2>6. Count digits using recursion</h2>
+<pre><code class="language-python">def count_digits(n):
+    n = abs(n)
+    if n &lt; 10:
+        return 1
+    return 1 + count_digits(n // 10)</code></pre>
+<p><code>count_digits(0)</code> returns <code>1</code>. Time <code>O(log n)</code>, recursion stack <code>O(log n)</code>.</p>
+<p>Note: the syllabus link labelled “count digit” may point to a GFG task that counts digits dividing the number rather than simply counting the number of digits. Use the editor&#x27;s exact problem statement. Recursive count of digits is shown here to match the syllabus topic.</p>
+<h2>7. Sum of array using recursion</h2>
+<pre><code class="language-python">def recursive_array_sum(arr, index=0):
+    if index == len(arr):
+        return 0
+    return arr[index] + recursive_array_sum(arr, index + 1)</code></pre>
+<p>Time <code>O(n)</code>, recursion stack <code>O(n)</code>.</p>
+<h1>SESSION 3 — Recursion II</h1>
+<p>This session continues recursion. Some linked problems (pivot index and removing duplicates) are naturally solved optimally with loops/two pointers, so their most efficient accepted solutions remain iterative. Fibonacci and Tower of Hanoi are included with recursive versions as well as the efficient Fibonacci option.</p>
+<h2>8. LeetCode — Find Pivot Index</h2>
+<p>Link: https://leetcode.com/problems/find-pivot-index/description/</p>
+<p><strong>Recommended optimal submission (iterative):</strong></p>
+<pre><code class="language-python">class Solution:
+    def pivotIndex(self, nums):
+        total = sum(nums)
+        left = 0
+        for i, x in enumerate(nums):
+            if left == total - left - x:
+                return i
+            left += x
+        return -1</code></pre>
+<p>Time <code>O(n)</code>, extra space <code>O(1)</code>. Recursion is unnecessary here and does not improve complexity.</p>
+<h2>9. Remove duplicates from a sorted array</h2>
+<p>Syllabus link: https://classroom.codingninjas.com/app/classroom/me/21313/content/451415/offering/6582572/problem/91</p>
+<p><strong>Recommended optimal solution (iterative two pointers):</strong></p>
+<pre><code class="language-python">def removeDuplicates(arr, n=None):
+    if n is None:
+        n = len(arr)
+    if n == 0:
+        return 0
+    write = 1
+    for read in range(1, n):
+        if arr[read] != arr[write - 1]:
+            arr[write] = arr[read]
+            write += 1
+    return write</code></pre>
+<p>Time <code>O(n)</code>, extra space <code>O(1)</code>. This is better than a recursive version because it avoids an <code>O(n)</code> recursion stack. Use the method name and return convention required by your classroom problem.</p>
+<h2>10. Fibonacci number — recursive version</h2>
+<p>GFG link: https://www.geeksforgeeks.org/problems/nth-fibonacci-number1335/1</p>
+<p><strong>Simple recursion (good for understanding, but slow for large n):</strong></p>
+<pre><code class="language-python">def fibonacci_recursive(n):
+    if n &lt;= 1:
+        return n
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)</code></pre>
+<p>Time <code>O(2^n)</code> approximately, recursion stack <code>O(n)</code>. This demonstrates the recursion tree but is not the best submission for large inputs.</p>
+<p><strong>Memoized recursion (faster):</strong></p>
+<pre><code class="language-python">from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibonacci_memo(n):
+    if n &lt;= 1:
+        return n
+    return fibonacci_memo(n - 1) + fibonacci_memo(n - 2)</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code> including cache and recursion stack.</p>
+<p><strong>Best simple efficiency for the GFG judge (iterative):</strong></p>
+<pre><code class="language-python">class Solution:
+    def nthFibonacci(self, n):
+        a, b = 0, 1
+        for _ in range(n):
+            a, b = b, a + b
+        return a</code></pre>
+<p>Time <code>O(n)</code>, extra space <code>O(1)</code>. Use this when the judge has large test cases.</p>
+<h2>11. Tower of Hanoi using recursion</h2>
+<p>GFG link: https://www.geeksforgeeks.org/problems/tower-of-hanoi-1587115621/1</p>
+<p>The linked GFG problem commonly asks for the <strong>minimum number of moves</strong>, which is <code>2^n - 1</code>, rather than printing the moves. For the required GFG method:</p>
+<pre><code class="language-python">class Solution:
+    def towerOfHanoi(self, n, fromm, to, aux):
+        return (1 &lt;&lt; n) - 1</code></pre>
+<p>Time <code>O(1)</code>, space <code>O(1)</code>.</p>
+<p>To understand the recursive algorithm and recursion tree, use this version to print every move:</p>
+<pre><code class="language-python">def tower_of_hanoi(n, source=&quot;A&quot;, auxiliary=&quot;B&quot;, target=&quot;C&quot;):
+    if n == 0:
+        return
+    tower_of_hanoi(n - 1, source, target, auxiliary)
+    print(f&quot;Move disk {n} from {source} to {target}&quot;)
+    tower_of_hanoi(n - 1, auxiliary, source, target)</code></pre>
+<p>Time <code>O(2^n)</code> because there are <code>2^n - 1</code> moves; recursion stack <code>O(n)</code>.</p>
+<p>Recurrence relation:</p>
+<p><code>T(n) = 2T(n - 1) + O(1)</code>, so <code>T(n) = O(2^n)</code>.</p>
+<h1>SESSION 4 — Array I</h1>
+<h2>10. LeetCode — Maximum Subarray (Kadane&#x27;s Algorithm)</h2>
+<p>Link: https://leetcode.com/problems/maximum-subarray/description/</p>
+<pre><code class="language-python">class Solution:
+    def maxSubArray(self, nums):
+        current = best = nums[0]
+        for x in nums[1:]:
+            current = max(x, current + x)
+            best = max(best, current)
+        return best</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>11. LeetCode — Maximum Product Subarray</h2>
+<p>Link: https://leetcode.com/problems/maximum-product-subarray/description/</p>
+<pre><code class="language-python">class Solution:
+    def maxProduct(self, nums):
+        high = low = answer = nums[0]
+        for x in nums[1:]:
+            if x &lt; 0:
+                high, low = low, high
+            high = max(x, high * x)
+            low = min(x, low * x)
+            answer = max(answer, high)
+        return answer</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>12. LeetCode — Majority Element</h2>
+<p>Link: https://leetcode.com/problems/majority-element/description/</p>
+<pre><code class="language-python">class Solution:
+    def majorityElement(self, nums):
+        candidate = None
+        votes = 0
+        for x in nums:
+            if votes == 0:
+                candidate = x
+            votes += 1 if x == candidate else -1
+        return candidate</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>. LeetCode guarantees a majority element exists.</p>
+<hr>
+<h1>SESSION 5 — Array II</h1>
+<h2>13. LeetCode — Two Sum</h2>
+<p>Link: https://leetcode.com/problems/two-sum/</p>
+<pre><code class="language-python">class Solution:
+    def twoSum(self, nums, target):
+        seen = {}
+        for i, x in enumerate(nums):
+            need = target - x
+            if need in seen:
+                return [seen[need], i]
+            seen[x] = i
+        return []</code></pre>
+<p>Expected time <code>O(n)</code>, space <code>O(n)</code>.</p>
+<h2>14. LeetCode — Count Elements With Maximum Frequency</h2>
+<p>Link: https://leetcode.com/problems/count-elements-with-maximum-frequency/description/</p>
+<pre><code class="language-python">from collections import Counter
+
+class Solution:
+    def maxFrequencyElements(self, nums):
+        counts = Counter(nums)
+        if not counts:
+            return 0
+        maximum = max(counts.values())
+        return sum(freq for freq in counts.values() if freq == maximum)</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code>.</p>
+<h2>15. LeetCode — Rotate Array</h2>
+<p>Link: https://leetcode.com/problems/rotate-array/description/</p>
+<pre><code class="language-python">class Solution:
+    def rotate(self, nums, k):
+        n = len(nums)
+        if n == 0:
+            return
+        k %= n
+
+        def reverse(left, right):
+            while left &lt; right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+
+        reverse(0, n - 1)
+        reverse(0, k - 1)
+        reverse(k, n - 1)</code></pre>
+<p>Time <code>O(n)</code>, extra space <code>O(1)</code>. This rotates <strong>right</strong> by <code>k</code>, as required by LeetCode.</p>
+<hr>
+<h1>SESSION 6 — Array III</h1>
+<h2>16. LeetCode — Sort Colors (Dutch National Flag)</h2>
+<p>Link: https://leetcode.com/problems/sort-colors/</p>
+<pre><code class="language-python">class Solution:
+    def sortColors(self, nums):
+        low = mid = 0
+        high = len(nums) - 1
+        while mid &lt;= high:
+            if nums[mid] == 0:
+                nums[low], nums[mid] = nums[mid], nums[low]
+                low += 1
+                mid += 1
+            elif nums[mid] == 1:
+                mid += 1
+            else:
+                nums[mid], nums[high] = nums[high], nums[mid]
+                high -= 1</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>17. LeetCode — Container With Most Water</h2>
+<p>Link: https://leetcode.com/problems/container-with-most-water/</p>
+<pre><code class="language-python">class Solution:
+    def maxArea(self, height):
+        left, right = 0, len(height) - 1
+        best = 0
+        while left &lt; right:
+            best = max(best, (right - left) * min(height[left], height[right]))
+            if height[left] &lt; height[right]:
+                left += 1
+            else:
+                right -= 1
+        return best</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>18. LeetCode — Trapping Rain Water</h2>
+<p>Link: https://leetcode.com/problems/trapping-rain-water/</p>
+<pre><code class="language-python">class Solution:
+    def trap(self, height):
+        left, right = 0, len(height) - 1
+        left_max = right_max = water = 0
+        while left &lt; right:
+            if height[left] &lt;= height[right]:
+                left_max = max(left_max, height[left])
+                water += left_max - height[left]
+                left += 1
+            else:
+                right_max = max(right_max, height[right])
+                water += right_max - height[right]
+                right -= 1
+        return water</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<hr>
+<h1>SESSION 7 — Binary Search I</h1>
+<h2>19. Lower Bound (first index with value &gt;= target)</h2>
+<p>Syllabus link: https://www.geeksforgeeks.org/implement-lower-bound/</p>
+<pre><code class="language-python">def lower_bound(arr, target):
+    left, right = 0, len(arr)
+    while left &lt; right:
+        mid = left + (right - left) // 2
+        if arr[mid] &lt; target:
+            left = mid + 1
+        else:
+            right = mid
+    return left</code></pre>
+<p>Time <code>O(log n)</code>, space <code>O(1)</code>. This is a standalone function because the syllabus links to an article rather than a single judge signature.</p>
+<h2>20. Upper Bound (first index with value &gt; target)</h2>
+<p>Syllabus link: https://www.geeksforgeeks.org/upper_bound-in-cpp/</p>
+<pre><code class="language-python">def upper_bound(arr, target):
+    left, right = 0, len(arr)
+    while left &lt; right:
+        mid = left + (right - left) // 2
+        if arr[mid] &lt;= target:
+            left = mid + 1
+        else:
+            right = mid
+    return left</code></pre>
+<p>Time <code>O(log n)</code>, space <code>O(1)</code>.</p>
+<h2>21. LeetCode — Koko Eating Bananas</h2>
+<p>Link: https://leetcode.com/problems/koko-eating-bananas/</p>
+<pre><code class="language-python">class Solution:
+    def minEatingSpeed(self, piles, h):
+        left, right = 1, max(piles)
+        while left &lt; right:
+            speed = left + (right - left) // 2
+            hours = sum((p + speed - 1) // speed for p in piles)
+            if hours &lt;= h:
+                right = speed
+            else:
+                left = speed + 1
+        return left</code></pre>
+<p>Time <code>O(n log M)</code>, where <code>M = max(piles)</code>, space <code>O(1)</code> auxiliary.</p>
+<h2>22. LeetCode — First Bad Version</h2>
+<p>Link: https://leetcode.com/problems/first-bad-version/</p>
+<pre><code class="language-python"># LeetCode provides isBadVersion(version). Do not define it yourself.
+class Solution:
+    def firstBadVersion(self, n):
+        left, right = 1, n
+        while left &lt; right:
+            mid = left + (right - left) // 2
+            if isBadVersion(mid):
+                right = mid
+            else:
+                left = mid + 1
+        return left</code></pre>
+<p>Time <code>O(log n)</code>, space <code>O(1)</code>. The platform supplies <code>isBadVersion</code>.</p>
+<hr>
+<h1>SESSION 8 — Binary Search II</h1>
+<h2>23. LeetCode — Search in Rotated Sorted Array (distinct values)</h2>
+<p>Link: https://leetcode.com/problems/search-in-rotated-sorted-array/</p>
+<pre><code class="language-python">class Solution:
+    def search(self, nums, target):
+        left, right = 0, len(nums) - 1
+        while left &lt;= right:
+            mid = left + (right - left) // 2
+            if nums[mid] == target:
+                return mid
+
+            if nums[left] &lt;= nums[mid]:
+                if nums[left] &lt;= target &lt; nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            else:
+                if nums[mid] &lt; target &lt;= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        return -1</code></pre>
+<p>Time <code>O(log n)</code>, space <code>O(1)</code>.</p>
+<h2>24. LeetCode — Search in Rotated Sorted Array II (duplicates)</h2>
+<p>Link: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/</p>
+<pre><code class="language-python">class Solution:
+    def search(self, nums, target):
+        left, right = 0, len(nums) - 1
+        while left &lt;= right:
+            mid = left + (right - left) // 2
+            if nums[mid] == target:
+                return True
+
+            if nums[left] == nums[mid] == nums[right]:
+                left += 1
+                right -= 1
+            elif nums[left] &lt;= nums[mid]:
+                if nums[left] &lt;= target &lt; nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            else:
+                if nums[mid] &lt; target &lt;= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        return False</code></pre>
+<p>Average <code>O(log n)</code>, worst-case <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>25. GFG — Aggressive Cows</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/aggressive-cows/0</p>
+<p>Common GFG signature: <code>aggressiveCows(self, stalls, k)</code>. If your editor shows another signature, keep the editor&#x27;s exact name.</p>
+<pre><code class="language-python">class Solution:
+    def aggressiveCows(self, stalls, k):
+        stalls.sort()
+        n = len(stalls)
+        if k &lt;= 1:
+            return 0
+
+        def can_place(distance):
+            count = 1
+            last = stalls[0]
+            for position in stalls[1:]:
+                if position - last &gt;= distance:
+                    count += 1
+                    last = position
+                    if count &gt;= k:
+                        return True
+            return False
+
+        left, right = 1, stalls[-1] - stalls[0]
+        answer = 0
+        while left &lt;= right:
+            mid = left + (right - left) // 2
+            if can_place(mid):
+                answer = mid
+                left = mid + 1
+            else:
+                right = mid - 1
+        return answer</code></pre>
+<p>Time <code>O(n log n + n log R)</code>, where <code>R</code> is the coordinate range.</p>
+<hr>
+<h1>SESSION 9 — Matrix Problems I</h1>
+<h2>26. LeetCode — Spiral Matrix</h2>
+<p>Link: https://leetcode.com/problems/spiral-matrix/description/</p>
+<pre><code class="language-python">class Solution:
+    def spiralOrder(self, matrix):
+        if not matrix or not matrix[0]:
+            return []
+        top, bottom = 0, len(matrix) - 1
+        left, right = 0, len(matrix[0]) - 1
+        result = []
+
+        while top &lt;= bottom and left &lt;= right:
+            for c in range(left, right + 1):
+                result.append(matrix[top][c])
+            top += 1
+
+            for r in range(top, bottom + 1):
+                result.append(matrix[r][right])
+            right -= 1
+
+            if top &lt;= bottom:
+                for c in range(right, left - 1, -1):
+                    result.append(matrix[bottom][c])
+                bottom -= 1
+
+            if left &lt;= right:
+                for r in range(bottom, top - 1, -1):
+                    result.append(matrix[r][left])
+                left += 1
+        return result</code></pre>
+<p>Time <code>O(mn)</code>, output space <code>O(mn)</code>.</p>
+<h2>27. LeetCode — Search a 2D Matrix</h2>
+<p>Link: https://leetcode.com/problems/search-a-2d-matrix/description/</p>
+<pre><code class="language-python">class Solution:
+    def searchMatrix(self, matrix, target):
+        if not matrix or not matrix[0]:
+            return False
+        rows, cols = len(matrix), len(matrix[0])
+        left, right = 0, rows * cols - 1
+        while left &lt;= right:
+            mid = left + (right - left) // 2
+            value = matrix[mid // cols][mid % cols]
+            if value == target:
+                return True
+            if value &lt; target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return False</code></pre>
+<p>Time <code>O(log(mn))</code>, space <code>O(1)</code>. Requires the LeetCode matrix ordering conditions.</p>
+<h2>28. LeetCode — Sort an Array</h2>
+<p>Link: https://leetcode.com/problems/sort-an-array/description/</p>
+<pre><code class="language-python">class Solution:
+    def sortArray(self, nums):
+        return sorted(nums)</code></pre>
+<p>Python&#x27;s built-in sort is efficient in practice: <code>O(n log n)</code> time, <code>O(n)</code> extra space for <code>sorted</code>. If the exam specifically asks for merge sort/quick sort, implement that named algorithm instead.</p>
+<hr>
+<h1>SESSION 10 — Matrix Problems II</h1>
+<h2>29. LeetCode — Median of a Row-Wise Sorted Matrix</h2>
+<p>Link: https://leetcode.com/problems/median-of-a-row-wise-sorted-matrix/description/</p>
+<pre><code class="language-python">from bisect import bisect_right
+
+class Solution:
+    def matrixMedian(self, grid):
+        rows, cols = len(grid), len(grid[0])
+        low = min(row[0] for row in grid)
+        high = max(row[-1] for row in grid)
+        desired = (rows * cols + 1) // 2
+
+        while low &lt; high:
+            mid = low + (high - low) // 2
+            count = sum(bisect_right(row, mid) for row in grid)
+            if count &lt; desired:
+                low = mid + 1
+            else:
+                high = mid
+        return low</code></pre>
+<p>Time <code>O(rows * log(cols) * log(value range))</code>, space <code>O(1)</code> auxiliary. This matches the LeetCode <code>matrixMedian</code> method name.</p>
+<h2>30. LeetCode — Row With Maximum Ones</h2>
+<p>Link: https://leetcode.com/problems/row-with-maximum-ones/description/</p>
+<pre><code class="language-python">class Solution:
+    def rowAndMaximumOnes(self, mat):
+        best_row, best_count = 0, -1
+        for i, row in enumerate(mat):
+            count = sum(row)
+            if count &gt; best_count:
+                best_row, best_count = i, count
+        return [best_row, best_count]</code></pre>
+<p>Time <code>O(mn)</code>, extra space <code>O(1)</code>. This matches the current LeetCode <code>row-and-maximum-ones</code> style interface. If your link/editor asks for the GFG “row with max 1s” return format, adjust to its requested index format.</p>
+<h2>31. LeetCode — Rotate Image 90 degrees clockwise</h2>
+<p>Link: https://leetcode.com/problems/rotate-image/</p>
+<pre><code class="language-python">class Solution:
+    def rotate(self, matrix):
+        n = len(matrix)
+        for r in range(n):
+            for c in range(r + 1, n):
+                matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
+        for row in matrix:
+            row.reverse()</code></pre>
+<p>Time <code>O(n^2)</code>, extra space <code>O(1)</code>.</p>
+<hr>
+<h1>SESSION 11 — Strings I</h1>
+<h2>32. Count frequency of each character (article link)</h2>
+<p>Link: https://takeuforward.org/data-structure/calculate-frequency-of-characters-in-a-string/</p>
+<pre><code class="language-python">from collections import Counter
+
+def character_frequency(s):
+    return Counter(s)
+
+# Example:
+# print(character_frequency(&quot;hello&quot;))  # {&#x27;h&#x27;: 1, &#x27;e&#x27;: 1, &#x27;l&#x27;: 2, &#x27;o&#x27;: 1}</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(k)</code> for <code>k</code> distinct characters.</p>
+<h2>33. Count words in a string (article link)</h2>
+<p>Link: https://takeuforward.org/data-structure/count-the-number-of-words-in-a-given-string/</p>
+<pre><code class="language-python">def count_words(s):
+    return len(s.split())</code></pre>
+<p>Time <code>O(n)</code>. <code>split()</code> handles multiple spaces and leading/trailing whitespace.</p>
+<h2>34. GFG — Isomorphic Strings</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/isomorphic-strings-1587115620/1</p>
+<pre><code class="language-python">class Solution:
+    def areIsomorphic(self, s1, s2):
+        if len(s1) != len(s2):
+            return False
+        forward, backward = {}, {}
+        for a, b in zip(s1, s2):
+            if a in forward and forward[a] != b:
+                return False
+            if b in backward and backward[b] != a:
+                return False
+            forward[a] = b
+            backward[b] = a
+        return True</code></pre>
+<p>If your GFG editor expects <code>&quot;true&quot;</code>/<code>&quot;false&quot;</code> strings or <code>1</code>/<code>0</code>, follow the starter signature/expected format. Time <code>O(n)</code>, space <code>O(k)</code>.</p>
+<hr>
+<h1>SESSION 12 — Strings II</h1>
+<h2>35. LeetCode — Valid Anagram</h2>
+<p>Link: https://leetcode.com/problems/valid-anagram/description/</p>
+<pre><code class="language-python">from collections import Counter
+
+class Solution:
+    def isAnagram(self, s, t):
+        return Counter(s) == Counter(t)</code></pre>
+<p>Time <code>O(n + m)</code>, space <code>O(k)</code>. For lowercase English letters only, a 26-count array is also possible.</p>
+<h2>36. GFG — Longest Prefix Suffix (LPS array)</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/longest-prefix-suffix2527/1</p>
+<pre><code class="language-python">class Solution:
+    def getLPSLength(self, s):
+        n = len(s)
+        lps = [0] * n
+        length = 0
+        i = 1
+        while i &lt; n:
+            if s[i] == s[length]:
+                length += 1
+                lps[i] = length
+                i += 1
+            elif length:
+                length = lps[length - 1]
+            else:
+                lps[i] = 0
+                i += 1
+        return lps[-1] if n else 0</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code>.</p>
+<h2>37. GFG — Minimum times A must be repeated so B is a substring</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/minimum-times-a-has-to-be-repeated-such-that-b-is-a-substring-of-it--170645/1</p>
+<pre><code class="language-python">class Solution:
+    def minRepeats(self, s1, s2):
+        repeats = (len(s2) + len(s1) - 1) // len(s1)
+        built = s1 * repeats
+        if s2 in built:
+            return repeats
+        if s2 in built + s1:
+            return repeats + 1
+        return -1</code></pre>
+<p>Expected time is linear in the constructed string/search under typical string-search implementation; space is proportional to the constructed string. Assumes <code>s1</code> is non-empty.</p>
+<hr>
+<h1>SESSION 13 — Linked List Introduction</h1>
+<h2>38. LeetCode — Design Linked List</h2>
+<p>Link: https://leetcode.com/problems/design-linked-list/description/</p>
+<pre><code class="language-python">class Node:
+    def __init__(self, val=0, nxt=None):
+        self.val = val
+        self.next = nxt
+
+class MyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    def get(self, index):
+        if index &lt; 0 or index &gt;= self.size:
+            return -1
+        cur = self.head
+        for _ in range(index):
+            cur = cur.next
+        return cur.val
+
+    def addAtHead(self, val):
+        self.head = Node(val, self.head)
+        self.size += 1
+
+    def addAtTail(self, val):
+        node = Node(val)
+        if not self.head:
+            self.head = node
+        else:
+            cur = self.head
+            while cur.next:
+                cur = cur.next
+            cur.next = node
+        self.size += 1
+
+    def addAtIndex(self, index, val):
+        if index &gt; self.size:
+            return
+        if index &lt;= 0:
+            self.addAtHead(val)
+            return
+        prev = self.head
+        for _ in range(index - 1):
+            prev = prev.next
+        prev.next = Node(val, prev.next)
+        self.size += 1
+
+    def deleteAtIndex(self, index):
+        if index &lt; 0 or index &gt;= self.size:
+            return
+        if index == 0:
+            self.head = self.head.next
+        else:
+            prev = self.head
+            for _ in range(index - 1):
+                prev = prev.next
+            prev.next = prev.next.next
+        self.size -= 1</code></pre>
+<p>Index operations are <code>O(n)</code>; head insertion/deletion are <code>O(1)</code>.</p>
+<h2>39. LeetCode — Delete Node in a Linked List</h2>
+<p>Link: https://leetcode.com/problems/delete-node-in-a-linked-list/description/</p>
+<pre><code class="language-python"># LeetCode supplies ListNode and passes a node that is not the tail.
+class Solution:
+    def deleteNode(self, node):
+        node.val = node.next.val
+        node.next = node.next.next</code></pre>
+<p>Time <code>O(1)</code>, space <code>O(1)</code>.</p>
+<h2>40. Search a node in a linked list (article link)</h2>
+<p>Link: https://medium.com/@itsanuragjoshi/search-an-element-in-a-linked-list-iterative-and-recursive-data-structures-algorithm-0c3fad1cd1d6</p>
+<pre><code class="language-python">def search_linked_list(head, target):
+    index = 0
+    cur = head
+    while cur:
+        if cur.val == target:
+            return index
+        cur = cur.next
+        index += 1
+    return -1</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>41. GFG — Count Nodes of Linked List</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/count-nodes-of-linked-list/1</p>
+<pre><code class="language-python">class Solution:
+    def getCount(self, head):
+        count = 0
+        while head:
+            count += 1
+            head = head.next
+        return count</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<hr>
+<h1>SESSION 14 — Linked List I</h1>
+<h2>42. LeetCode — Reverse Linked List</h2>
+<p>Link: https://leetcode.com/problems/reverse-linked-list/description/</p>
+<pre><code class="language-python">class Solution:
+    def reverseList(self, head):
+        prev = None
+        cur = head
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+        return prev</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>43. LeetCode — Middle of the Linked List</h2>
+<p>Link: https://leetcode.com/problems/middle-of-the-linked-list/description/</p>
+<pre><code class="language-python">class Solution:
+    def middleNode(self, head):
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>44. LeetCode — Merge Two Sorted Lists</h2>
+<p>Link: https://leetcode.com/problems/merge-two-sorted-lists/description/</p>
+<pre><code class="language-python"># LeetCode supplies ListNode.
+class Solution:
+    def mergeTwoLists(self, list1, list2):
+        dummy = ListNode(0)
+        tail = dummy
+        while list1 and list2:
+            if list1.val &lt;= list2.val:
+                tail.next = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+            tail = tail.next
+        tail.next = list1 if list1 else list2
+        return dummy.next</code></pre>
+<p>Time <code>O(n + m)</code>, auxiliary space <code>O(1)</code> (reuses nodes).</p>
+<hr>
+<h1>SESSION 15 — Linked List II</h1>
+<h2>45. LeetCode — Add Two Numbers</h2>
+<p>Link: https://leetcode.com/problems/add-two-numbers/description/</p>
+<pre><code class="language-python"># LeetCode supplies ListNode.
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        dummy = ListNode(0)
+        tail = dummy
+        carry = 0
+        while l1 or l2 or carry:
+            a = l1.val if l1 else 0
+            b = l2.val if l2 else 0
+            total = a + b + carry
+            carry = total // 10
+            tail.next = ListNode(total % 10)
+            tail = tail.next
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        return dummy.next</code></pre>
+<p>Time <code>O(max(n, m))</code>, output space <code>O(max(n, m))</code>.</p>
+<h2>46. LeetCode — Rotate List</h2>
+<p>Link: https://leetcode.com/problems/rotate-list/description/</p>
+<pre><code class="language-python">class Solution:
+    def rotateRight(self, head, k):
+        if not head or not head.next or k == 0:
+            return head
+        length = 1
+        tail = head
+        while tail.next:
+            tail = tail.next
+            length += 1
+        k %= length
+        if k == 0:
+            return head
+        tail.next = head
+        steps_to_new_tail = length - k
+        new_tail = head
+        for _ in range(steps_to_new_tail - 1):
+            new_tail = new_tail.next
+        new_head = new_tail.next
+        new_tail.next = None
+        return new_head</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<h2>47. LeetCode — Remove Duplicates from Sorted List</h2>
+<p>Link: https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/</p>
+<pre><code class="language-python">class Solution:
+    def deleteDuplicates(self, head):
+        cur = head
+        while cur and cur.next:
+            if cur.val == cur.next.val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return head</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(1)</code>.</p>
+<hr>
+<h1>SESSION 16 — Stack Implementation</h1>
+<h2>48. CodeChef — Stack using array</h2>
+<p>Link: https://www.codechef.com/learn/course/stacks-and-queues/LSTACKS/problems/STACK03</p>
+<p>For a typical array-backed stack, Python&#x27;s list already implements an efficient dynamic array:</p>
+<pre><code class="language-python">class Stack:
+    def __init__(self):
+        self.data = []
+
+    def push(self, value):
+        self.data.append(value)
+
+    def pop(self):
+        if not self.data:
+            return -1
+        return self.data.pop()
+
+    def peek(self):
+        if not self.data:
+            return -1
+        return self.data[-1]
+
+    def is_empty(self):
+        return len(self.data) == 0</code></pre>
+<p>Push/pop at end: amortized <code>O(1)</code>. The CodeChef task may prescribe a different input/output protocol; follow its statement for the driver code.</p>
+<h2>49. LeetCode — Next Greater Element I</h2>
+<p>Link: https://leetcode.com/problems/next-greater-element-i/description/</p>
+<pre><code class="language-python">class Solution:
+    def nextGreaterElement(self, nums1, nums2):
+        next_greater = {}
+        stack = []
+        for x in nums2:
+            while stack and stack[-1] &lt; x:
+                next_greater[stack.pop()] = x
+            stack.append(x)
+        return [next_greater.get(x, -1) for x in nums1]</code></pre>
+<p>Time <code>O(n + m)</code>, space <code>O(m)</code>.</p>
+<h2>50. GFG — Smaller on Left</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/smaller-on-left20360700/1</p>
+<p>This problem&#x27;s exact method name can differ by GFG version. The following returns, for every element, the count of earlier elements smaller than it using coordinate compression + Fenwick tree.</p>
+<pre><code class="language-python">class Solution:
+    def constructLowerArray(self, arr):
+        # Some GFG variants use another method name/return definition.
+        # This implementation returns the count of earlier smaller values.
+        values = sorted(set(arr))
+        rank = {v: i + 1 for i, v in enumerate(values)}
+        bit = [0] * (len(values) + 1)
+
+        def query(i):
+            total = 0
+            while i &gt; 0:
+                total += bit[i]
+                i -= i &amp; -i
+            return total
+
+        def update(i):
+            while i &lt; len(bit):
+                bit[i] += 1
+                i += i &amp; -i
+
+        answer = []
+        for x in arr:
+            r = rank[x]
+            answer.append(query(r - 1))
+            update(r)
+        return answer</code></pre>
+<p>Time <code>O(n log n)</code>, space <code>O(n)</code>. <strong>Check the actual GFG prompt:</strong> if it asks for the previous smaller *element* rather than the *count*, this is a different problem.</p>
+<h2>51. GFG — Previous Smaller Element (PSE)</h2>
+<p>If your class notes use PSE to mean <strong>previous smaller element</strong>, use a monotonic stack:</p>
+<pre><code class="language-python">def previous_smaller_elements(arr):
+    stack = []
+    answer = []
+    for x in arr:
+        while stack and stack[-1] &gt;= x:
+            stack.pop()
+        answer.append(stack[-1] if stack else -1)
+        stack.append(x)
+    return answer</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code>.</p>
+<hr>
+<h1>SESSION 17 — Stack I</h1>
+<h2>52. LeetCode — Valid Parentheses</h2>
+<p>Link: https://leetcode.com/problems/valid-parentheses/description/</p>
+<pre><code class="language-python">class Solution:
+    def isValid(self, s):
+        stack = []
+        pairs = {&#x27;)&#x27;: &#x27;(&#x27;, &#x27;]&#x27;: &#x27;[&#x27;, &#x27;}&#x27;: &#x27;{&#x27;}
+        for ch in s:
+            if ch in &#x27;([{&#x27;:
+                stack.append(ch)
+            elif not stack or stack.pop() != pairs[ch]:
+                return False
+        return not stack</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code>.</p>
+<h2>53. GFG — Evaluation of Postfix Expression</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/evaluation-of-postfix-expression1735/1</p>
+<p>This common GFG version uses single-character digits and operators:</p>
+<pre><code class="language-python">class Solution:
+    def evaluatePostfix(self, S):
+        stack = []
+        for ch in S:
+            if ch.isdigit():
+                stack.append(int(ch))
+            else:
+                b = stack.pop()
+                a = stack.pop()
+                if ch == &#x27;+&#x27;:
+                    stack.append(a + b)
+                elif ch == &#x27;-&#x27;:
+                    stack.append(a - b)
+                elif ch == &#x27;*&#x27;:
+                    stack.append(a * b)
+                elif ch == &#x27;/&#x27;:
+                    stack.append(int(a / b))
+                elif ch == &#x27;^&#x27;:
+                    stack.append(a ** b)
+        return stack[-1]</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code>. If your problem uses space-separated multi-digit numbers or a different division rule, adapt to its exact statement.</p>
+<hr>
+<h1>SESSION 18 — Stack II</h1>
+<h2>54. LeetCode — Min Stack</h2>
+<p>Link: https://leetcode.com/problems/min-stack/description/</p>
+<pre><code class="language-python">class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minimums = []
+
+    def push(self, val):
+        self.stack.append(val)
+        if not self.minimums or val &lt;= self.minimums[-1]:
+            self.minimums.append(val)
+
+    def pop(self):
+        val = self.stack.pop()
+        if val == self.minimums[-1]:
+            self.minimums.pop()
+
+    def top(self):
+        return self.stack[-1]
+
+    def getMin(self):
+        return self.minimums[-1]</code></pre>
+<p>All operations <code>O(1)</code>; space <code>O(n)</code>.</p>
+<h2>55. LeetCode — Asteroid Collision</h2>
+<p>Link: https://leetcode.com/problems/asteroid-collision/description/</p>
+<pre><code class="language-python">class Solution:
+    def asteroidCollision(self, asteroids):
+        stack = []
+        for x in asteroids:
+            alive = True
+            while alive and x &lt; 0 and stack and stack[-1] &gt; 0:
+                if stack[-1] &lt; -x:
+                    stack.pop()
+                elif stack[-1] == -x:
+                    stack.pop()
+                    alive = False
+                else:
+                    alive = False
+            if alive:
+                stack.append(x)
+        return stack</code></pre>
+<p>Time <code>O(n)</code>, space <code>O(n)</code>.</p>
+<h2>56. LeetCode — Online Stock Span</h2>
+<p>Link: https://leetcode.com/problems/online-stock-span/description/</p>
+<pre><code class="language-python">class StockSpanner:
+    def __init__(self):
+        self.stack = []  # (price, span)
+
+    def next(self, price):
+        span = 1
+        while self.stack and self.stack[-1][0] &lt;= price:
+            span += self.stack.pop()[1]
+        self.stack.append((price, span))
+        return span</code></pre>
+<p>Amortized <code>O(1)</code> per call, <code>O(n)</code> total space.</p>
+<hr>
+<h1>SESSION 19 — Queue Introduction</h1>
+<h2>57. GFG — Implement Queue using Array</h2>
+<p>Link: https://www.geeksforgeeks.org/problems/implement-queue-using-array/1</p>
+<p>GFG may provide a <code>Queue</code> class skeleton with required methods. A basic correct Python queue uses <code>collections.deque</code>:</p>
+<pre><code class="language-python">from collections import deque
+
+class Queue:
+    def __init__(self):
+        self.data = deque()
+
+    def enqueue(self, x):
+        self.data.append(x)
+
+    def dequeue(self):
+        return self.data.popleft() if self.data else -1
+
+    def front(self):
+        return self.data[0] if self.data else -1
+
+    def isEmpty(self):
+        return len(self.data) == 0</code></pre>
+<p>Enqueue/dequeue: <code>O(1)</code>. <strong>Match the method names required by the GFG editor.</strong></p>
+<h2>58. LeetCode — Design Circular Queue</h2>
+<p>Link: https://leetcode.com/problems/design-circular-queue/description/</p>
+<pre><code class="language-python">class MyCircularQueue:
+    def __init__(self, k):
+        self.data = [0] * k
+        self.capacity = k
+        self.front_index = 0
+        self.size = 0
+
+    def enQueue(self, value):
+        if self.isFull():
+            return False
+        idx = (self.front_index + self.size) % self.capacity
+        self.data[idx] = value
+        self.size += 1
+        return True
+
+    def deQueue(self):
+        if self.isEmpty():
+            return False
+        self.front_index = (self.front_index + 1) % self.capacity
+        self.size -= 1
+        return True
+
+    def Front(self):
+        return -1 if self.isEmpty() else self.data[self.front_index]
+
+    def Rear(self):
+        if self.isEmpty():
+            return -1
+        idx = (self.front_index + self.size - 1) % self.capacity
+        return self.data[idx]
+
+    def isEmpty(self):
+        return self.size == 0
+
+    def isFull(self):
+        return self.size == self.capacity</code></pre>
+<p>All operations <code>O(1)</code>, space <code>O(k)</code>.</p>
+<h2>59. LeetCode — Implement Queue using Stacks</h2>
+<p>Link: https://leetcode.com/problems/implement-queue-using-stacks/description/</p>
+<pre><code class="language-python">class MyQueue:
+    def __init__(self):
+        self.in_stack = []
+        self.out_stack = []
+
+    def push(self, x):
+        self.in_stack.append(x)
+
+    def _move(self):
+        if not self.out_stack:
+            while self.in_stack:
+                self.out_stack.append(self.in_stack.pop())
+
+    def pop(self):
+        self._move()
+        return self.out_stack.pop()
+
+    def peek(self):
+        self._move()
+        return self.out_stack[-1]
+
+    def empty(self):
+        return not self.in_stack and not self.out_stack</code></pre>
+<p>Push amortized <code>O(1)</code>, pop/peek amortized <code>O(1)</code>, space <code>O(n)</code>.</p>
+<h2>60. Stack using Queues (standard implementation)</h2>
+<pre><code class="language-python">from collections import deque
+
+class MyStack:
+    def __init__(self):
+        self.q = deque()
+
+    def push(self, x):
+        self.q.append(x)
+        for _ in range(len(self.q) - 1):
+            self.q.append(self.q.popleft())
+
+    def pop(self):
+        return self.q.popleft()
+
+    def top(self):
+        return self.q[0]
+
+    def empty(self):
+        return not self.q</code></pre>
+<p>Push <code>O(n)</code>, pop/top <code>O(1)</code>, space <code>O(n)</code>.</p>
+<hr>
+<h1>Quick exam checklist</h1>
+<p>1. Use the <strong>exact method signature visible in the online judge</strong>. A different signature is the most common reason an otherwise correct submission fails.</p>
+<p>2. LeetCode normally provides <code>ListNode</code>, <code>isBadVersion</code>, and other special helpers. Do not redefine them unless the platform asks you to.</p>
+<p>3. For in-place questions such as Rotate Array and Sort Colors, mutate the input and usually return nothing.</p>
+<p>4. For return-value questions, use <code>return</code>, not <code>print</code>.</p>
+<p>5. Test edge cases: empty/single-element lists where allowed, duplicates, negative values, zero, and boundary targets.</p>
+<p>6. Complexity targets to remember: one-pass array algorithms <code>O(n)</code>, hash-map Two Sum expected <code>O(n)</code>, binary search <code>O(log n)</code>, two-pointer water problems <code>O(n)</code>, and monotonic-stack problems <code>O(n)</code>.</p>
+<p><strong>Important limitation:</strong> Some syllabus links point to articles or classroom-specific tasks, not a universal judge template. The algorithm can be correct while a method name or return convention still differs. Always preserve the exact starter code provided by your particular GFG/LeetCode editor.</p></article></main></body></html>
