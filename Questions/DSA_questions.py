@@ -9,6 +9,8 @@ def count_digits_iterative(n: int) -> int:
         count += 1
     return count
 
+
+
 # 2.Given an integer n, reverse its digits.
 def reverse_number(n):
     reverse = 0
