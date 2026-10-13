@@ -37,5 +37,3 @@ def binary_search(nums, target):
             r = mid - 1
 
     return -1
-
-# made for commit
